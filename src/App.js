@@ -87,7 +87,14 @@ function App() {
             }}>
               <div>
                 <strong>{v.subject}</strong>
-                <p>{v.content}</p>
+                <p>{v.content.split("|").map((vv, ii) => {
+                  return (
+                    <>
+                      {vv}
+                      <br></br>
+                    </>
+                  )
+                })}</p>
               </div>
             </div>
           })
@@ -97,7 +104,6 @@ function App() {
         {
           weekcontent.map((v, i) => {
             return <li key={i} onClick={() => handleItemClick(i)} className={week === i ? "act" : null}>{v.yoil}요일</li>
-
           })
         }
       </ul>
