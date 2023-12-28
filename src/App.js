@@ -61,19 +61,37 @@ function App() {
 
   }
 
+  const wvar = document.body.offsetWidth || window.innerWidth;
+
+  const widthset = wvar * weekcontent.length;
+
   useEffect(() => {
     const intervalId = setInterval(weekUpdate, 2000);
     return () => clearInterval(intervalId);
   }, [week, isPaused]);
 
-
   return (
-    <div className="App">
-      <div style={{ height: "50vh", backgroundColor: weekcontent[week].bannersrc }}>
-        <div>
-          <strong>{weekcontent[week].subject}</strong>
-          <p>{weekcontent[week].content}</p>
-        </div>
+    <div className="App" style={{ overflow: "hidden" }}>
+      <div style={{
+        display: "flex",
+        width: widthset,
+        transition: "0.5s",
+        marginLeft: -(wvar * week)
+      }}>
+        {
+          weekcontent.map((v, i) => {
+            return <div key={i} style={{
+              height: "50vh",
+              width: wvar,
+              backgroundColor: v.bannersrc
+            }}>
+              <div>
+                <strong>{v.subject}</strong>
+                <p>{v.content}</p>
+              </div>
+            </div>
+          })
+        }
       </div>
       <ul className='d-flex tablist'>
         {
@@ -83,7 +101,6 @@ function App() {
           })
         }
       </ul>
-
     </div>
   );
 }
